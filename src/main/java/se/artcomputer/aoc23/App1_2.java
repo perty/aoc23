@@ -24,7 +24,7 @@ public class App1_2 {
         long[] sum = { 0 };
 
         try {
-            Files.lines(Paths.get("input.txt")).forEach(line -> {
+            Files.lines(Paths.get("data/input1.txt")).forEach(line -> {
                 String calibrationValue = processLine(line);
                 sum[0] += Integer.parseInt(calibrationValue);
             });
@@ -69,8 +69,7 @@ public class App1_2 {
             lastDigit = matcher.group();
         }
         if (firstDigit != null) {
-            String calibrationValue = firstDigit + lastDigit;
-            return calibrationValue;
+            return firstDigit + lastDigit;
         }
         return "0";
     }

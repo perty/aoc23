@@ -6,13 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.IOException;
 
-public class App1 {
-    public static void main(String[] args) throws Exception {
+public class App1_1 {
+    public static void main(String[] args) {
         int[] sum = {0};
         Pattern pattern = Pattern.compile("\\d");
 
         try {
-            Files.lines(Paths.get("input.txt")).forEach(line -> {
+            Files.lines(Paths.get("data/input1.txt")).forEach(line -> {
                 Matcher matcher = pattern.matcher(line);
                 String firstDigit = null;
                 String lastDigit = null;
