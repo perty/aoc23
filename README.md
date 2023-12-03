@@ -26,4 +26,6 @@ The second part was solved by Github Copilo as well, straight off. I am impresse
 
 The first part was solved by Github Copilot after a few iterations of the example where I just told it that it was wrong. When it succeeded, the real input was solved as well.
 
-
+The second part, it could not solve without my help. Initially, I just fed back that it was wrong, but it failed to 
+make any progress. I broke down the problem into smaller parts, and then it could solve it. I was worried that using
+a set to avoid duplicates could be a problem, but it was not.
