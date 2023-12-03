@@ -22,3 +22,8 @@ The first part was solved by Github Copilot without changes. I just copied the d
 
 The second part was solved by Github Copilo as well, straight off. I am impressed.
 
+## Day 3
+
+The first part was solved by Github Copilot after a few iterations of the example where I just told it that it was wrong. When it succeeded, the real input was solved as well.
+
+
