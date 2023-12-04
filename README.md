@@ -29,3 +29,8 @@ The first part was solved by Github Copilot after a few iterations of the exampl
 The second part, it could not solve without my help. Initially, I just fed back that it was wrong, but it failed to 
 make any progress. I broke down the problem into smaller parts, and then it could solve it. I was worried that using
 a set to avoid duplicates could be a problem, but it was not.
+
+## Day 4
+
+The first part was solved by Github Copilot after a few iterations where it had problems with parsing the input. I just gave it some observations.
+
