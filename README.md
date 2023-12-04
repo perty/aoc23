@@ -34,3 +34,6 @@ a set to avoid duplicates could be a problem, but it was not.
 
 The first part was solved by Github Copilot after a few iterations where it had problems with parsing the input. I just gave it some observations.
 
+Part 2 was solved at first try. The only problem was that the response length exceeded a limit. However, it was easy to figure out the last few lines of the code.
+
+The whole conversation is in the file [day4.md](prompts/day4.md).
