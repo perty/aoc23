@@ -37,3 +37,11 @@ The first part was solved by Github Copilot after a few iterations where it had 
 Part 2 was solved at first try. The only problem was that the response length exceeded a limit. However, it was easy to figure out the last few lines of the code.
 
 The whole conversation is in the file [day4.md](prompts/day4.md).
+
+## Day 5
+
+In the first part, it started with a suggestion in Python. Funny. It needed some help to get the parsing of the input right. On the real input, the code had to use long instead of int, but that was all.
+
+I was impressed that it understood the specification so well. A lot faster than I did.
+
+The whole conversation is in the file [day5.md](prompts/day5.md).
