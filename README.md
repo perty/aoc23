@@ -44,4 +44,8 @@ In the first part, it started with a suggestion in Python. Funny. It needed some
 
 I was impressed that it understood the specification so well. A lot faster than I did.
 
+The second part offered a challenge in terms of memory usage and performance. It solved it correctly for the test input at first try. The real input caused an out-of-memory error. It then suggested a solution that hadn't terminated in 5 minutes. The last suggestion clocked in under 4 minutes. It explained the complexity: 
+
+_"The current solution has a time complexity of O(n*m), where n is the number of seeds and m is the number of mappings... One way to improve the performance is to sort the mappings by their source start values. This way, when mapping a value, you can use binary search to quickly find the mapping that applies to the value, instead of having to check each mapping in turn. This can reduce the time complexity of the mapping operation from O(m) to O(log m)..."_
+
 The whole conversation is in the file [day5.md](prompts/day5.md).

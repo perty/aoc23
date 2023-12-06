@@ -443,3 +443,268 @@ public class App5_1 {
 In this code, I've replaced int with long for the variables and arrays that store the seeds and mappings. I've also replaced Integer.parseInt with Long.parseLong to parse the numbers from the file. This should fix the NumberFormatException and allow the code to handle larger numbers.
 ### perty
 Great we did it!
+
+## Part 2
+
+### perty
+
+The puzzle is modified in the interpretation of the "seeds" line.
+
+Everyone will starve if you only plant such a small number of seeds. Re-reading the almanac, it looks like the seeds: line actually describes ranges of seed numbers.
+
+The values on the initial seeds: line come in pairs. Within each pair, the first value is the start of the range and the second value is the length of the range. So, in the first line of the example above:
+
+seeds: 79 14 55 13
+
+This line describes two ranges of seed numbers to be planted in the garden. The first range starts with seed number 79 and contains 14 values: 79, 80, ..., 91, 92. The second range starts with seed number 55 and contains 13 values: 55, 56, ..., 66, 67.
+
+Now, rather than considering four seed numbers, you need to consider a total of 27 seed numbers.
+
+In the above example, the lowest location number can be obtained from seed number 82, which corresponds to soil 84, fertilizer 84, water 84, light 77, temperature 45, humidity 46, and location 46. So, the lowest location number is 46.
+
+Consider all of the initial seed numbers listed in the ranges on the first line of the almanac. What is the lowest location number that corresponds to any of the initial seed numbers?
+
+### GitHub Copilot
+To solve this modified puzzle, we need to adjust our approach to handle ranges of seeds instead of individual seeds. We can do this by modifying the part of the code that reads the seeds from the file. Instead of adding each seed directly to the list of seeds, we'll interpret each pair of numbers as a range and add all the numbers in that range to the list of seeds. Here's how you can modify the code:
+
+```java
+import java.util.*;
+import java.nio.file.*;
+import java.io.*;
+
+public class App5_2 {
+    public static void main(String[] args) throws IOException {
+        List<Long> seeds = new ArrayList<>();
+        List<Map<Long, long[]>> mappings = new ArrayList<>();
+
+        Path path = Paths.get("data/input5.txt");
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            Map<Long, long[]> currentMapping = null;
+            while ((line = reader.readLine()) != null) {
+                if (line.isEmpty()) {
+                    if (currentMapping != null) {
+                        mappings.add(currentMapping);
+                        currentMapping = null;
+                    }
+                } else if (line.endsWith("map:")) {
+                    currentMapping = new HashMap<>();
+                } else if (line.startsWith("seeds: ")) {
+                    String[] parts = line.substring(7).split(" ");
+                    for (int i = 0; i < parts.length; i += 2) {
+                        long start = Long.parseLong(parts[i]);
+                        long length = Long.parseLong(parts[i + 1]);
+                        for (long j = start; j < start + length; j++) {
+                            seeds.add(j);
+                        }
+                    }
+                } else if (currentMapping != null) {
+                    String[] parts = line.split(" ");
+                    long destStart = Long.parseLong(parts[0]);
+                    long sourceStart = Long.parseLong(parts[1]);
+                    long length = Long.parseLong(parts[2]);
+                    currentMapping.put(sourceStart, new long[]{destStart, length});
+                }
+            }
+            if (currentMapping != null) {
+                mappings.add(currentMapping);
+            }
+        }
+
+        System.out.println(solve(seeds, mappings));  // Output: 35
+    }
+
+    private static long mapValue(long value, Map<Long, long[]> mapping) {
+        for (Map.Entry<Long, long[]> entry : mapping.entrySet()) {
+            long sourceStart = entry.getKey();
+            long destStart = entry.getValue()[0];
+            long length = entry.getValue()[1];
+            if (sourceStart <= value && value < sourceStart + length) {
+                return destStart + (value - sourceStart);
+            }
+        }
+        return value;
+    }
+
+    private static long solve(List<Long> seeds, List<Map<Long, long[]>> mappings) {
+        long minLocation = Long.MAX_VALUE;
+        for (long seed : seeds) {
+            long value = seed;
+            for (Map<Long, long[]> mapping : mappings) {
+                value = mapValue(value, mapping);
+            }
+            minLocation = Math.min(minLocation, value);
+        }
+        return minLocation;
+    }
+}
+```
+Sorry, the response hit the length limit. Please rephrase your prompt.
+### perty
+We have a problem with real input, "Exception in thread "main" java.lang.OutOfMemoryError: Java heap space"
+### GitHub Copilot
+The OutOfMemoryError indicates that the program is trying to use more memory than is available to it. This could be due to the large number of seeds being generated from the ranges in the input file.
+
+One way to address this issue is to change the approach to not store all the seeds in memory at once. Instead of generating all the seeds upfront, we can generate and process each seed one at a time. This can be done by creating a custom iterator that generates the next seed each time its next() method is called.
+
+Here's how you can modify the code:
+
+```java
+import java.util.*;
+import java.nio.file.*;
+import java.io.*;
+
+public class App5_2 {
+    public static void main(String[] args) throws IOException {
+        List<long[]> seedRanges = new ArrayList<>();
+        List<Map<Long, long[]>> mappings = new ArrayList<>();
+
+        Path path = Paths.get("data/input5.txt");
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            Map<Long, long[]> currentMapping = null;
+            while ((line = reader.readLine()) != null) {
+                if (line.isEmpty()) {
+                    if (currentMapping != null) {
+                        mappings.add(currentMapping);
+                        currentMapping = null;
+                    }
+                } else if (line.endsWith("map:")) {
+                    currentMapping = new HashMap<>();
+                } else if (line.startsWith("seeds: ")) {
+                    String[] parts = line.substring(7).split(" ");
+                    for (int i = 0; i < parts.length; i += 2) {
+                        long start = Long.parseLong(parts[i]);
+                        long length = Long.parseLong(parts[i + 1]);
+                        seedRanges.add(new long[]{start, length});
+                    }
+                } else if (currentMapping != null) {
+                    String[] parts = line.split(" ");
+                    long destStart = Long.parseLong(parts[0]);
+                    long sourceStart = Long.parseLong(parts[1]);
+                    long length = Long.parseLong(parts[2]);
+                    currentMapping.put(sourceStart, new long[]{destStart, length});
+                }
+            }
+            if (currentMapping != null) {
+                mappings.add(currentMapping);
+            }
+        }
+
+        System.out.println(solve(seedRanges, mappings));  // Output: 35
+    }
+
+    private static long mapValue(long value, Map<Long, long[]> mapping) {
+        for (Map.Entry<Long, long[]> entry : mapping.entrySet()) {
+            long sourceStart = entry.getKey();
+            long destStart = entry.getValue()[0];
+            long length = entry.getValue()[1];
+            if (sourceStart <= value && value < sourceStart + length) {
+                return destStart + (value - sourceStart);
+            }
+        }
+        return value;
+    }
+
+    private static long solve(List<long[]> seedRanges, List<Map<Long, long[]>> mappings) {
+        long minLocation = Long.MAX_VALUE;
+        for (long[] range : seedRanges) {
+            for (long seed = range[0]; seed < range[0] + range[1]; seed++) {
+                long value = seed;
+                for (Map<Long, long[]> mapping : mappings) {
+                    value = mapValue(value, mapping);
+                }
+                minLocation = Math.min(minLocation, value);
+            }
+        }
+        return minLocation;
+    }
+}
+```
+In this code, I've replaced the list of seeds with a list of seed ranges. Each range is represented as a two-element array, where the first element is the start of the range and the second element is the length of the range. In the solve() method, I've added a nested loop that iterates over each seed in each range. This way, only one seed is generated and processed at a time, which should significantly reduce the memory usage of the program.
+### perty
+It has been running for 5 minutes now and not terminated.
+### GitHub Copilot
+The issue you're experiencing is likely due to the large number of seeds and mappings that need to be processed. The current solution has a time complexity of O(n*m), where n is the number of seeds and m is the number of mappings. This can be quite slow if both n and m are large.
+
+One way to improve the performance is to sort the mappings by their source start values. This way, when mapping a value, you can use binary search to quickly find the mapping that applies to the value, instead of having to check each mapping in turn. This can reduce the time complexity of the mapping operation from O(m) to O(log m), which should significantly speed up the program.
+
+Here's how you can modify the code:
+
+```java
+import java.util.*;
+import java.nio.file.*;
+import java.io.*;
+
+public class App5_2 {
+    public static void main(String[] args) throws IOException {
+        List<long[]> seedRanges = new ArrayList<>();
+        List<Map<Long, long[]>> mappings = new ArrayList<>();
+
+        Path path = Paths.get("data/input5.txt");
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            String line;
+            Map<Long, long[]> currentMapping = null;
+            while ((line = reader.readLine()) != null) {
+                if (line.isEmpty()) {
+                    if (currentMapping != null) {
+                        mappings.add(currentMapping);
+                        currentMapping = null;
+                    }
+                } else if (line.endsWith("map:")) {
+                    currentMapping = new TreeMap<>();  // Use TreeMap to keep entries sorted
+                } else if (line.startsWith("seeds: ")) {
+                    String[] parts = line.substring(7).split(" ");
+                    for (int i = 0; i < parts.length; i += 2) {
+                        long start = Long.parseLong(parts[i]);
+                        long length = Long.parseLong(parts[i + 1]);
+                        seedRanges.add(new long[]{start, length});
+                    }
+                } else if (currentMapping != null) {
+                    String[] parts = line.split(" ");
+                    long destStart = Long.parseLong(parts[0]);
+                    long sourceStart = Long.parseLong(parts[1]);
+                    long length = Long.parseLong(parts[2]);
+                    currentMapping.put(sourceStart, new long[]{destStart, length});
+                }
+            }
+            if (currentMapping != null) {
+                mappings.add(currentMapping);
+            }
+        }
+
+        System.out.println(solve(seedRanges, mappings));  // Output: 35
+    }
+
+    private static long mapValue(long value, Map<Long, long[]> mapping) {
+        // Use binary search to find the mapping that applies to the value
+        Map.Entry<Long, long[]> entry = ((TreeMap<Long, long[]>) mapping).floorEntry(value);
+        if (entry != null) {
+            long sourceStart = entry.getKey();
+            long destStart = entry.getValue()[0];
+            long length = entry.getValue()[1];
+            if (sourceStart <= value && value < sourceStart + length) {
+                return destStart + (value - sourceStart);
+            }
+        }
+        return value;
+    }
+
+    private static long solve(List<long[]> seedRanges, List<Map<Long, long[]>> mappings) {
+        long minLocation = Long.MAX_VALUE;
+        for (long[] range : seedRanges) {
+            for (long seed = range[0]; seed < range[0] + range[1]; seed++) {
+                long value = seed;
+                for (Map<Long, long[]> mapping : mappings) {
+                    value = mapValue(value, mapping);
+                }
+                minLocation = Math.min(minLocation, value);
+            }
+        }
+        return
+```
+Sorry, the response hit the length limit. Please rephrase your prompt.
+### perty
+Great, that was within 4 minutes and correct!
+### GitHub Copilot
+I'm glad to hear that the solution worked for you and within a reasonable time! If you have any more puzzles or questions, feel free to ask.
