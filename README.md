@@ -57,3 +57,8 @@ First part, AI has serious problems with parsing the input. I let it try several
 At the second part, it presented only pseudocode. I expressed a concern that it was not efficient enough. So it was tricked into doing a premature optimization. 
 
 That went down a rabbit hole where it could not find the correct solution. I suggested it to try a non-optimized approach and it worked on the second try. The optimization was not needed.
+
+## Day 7
+
+I decided to take a more active part and sort of read my mind, or by chance, it didn't give me all the code at once. We developed the solution in steps. I suggested some simplifications and pointed out a few mistakes. On first run, it worked.
+
