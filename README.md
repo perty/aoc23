@@ -49,3 +49,7 @@ The second part offered a challenge in terms of memory usage and performance. It
 _"The current solution has a time complexity of O(n*m), where n is the number of seeds and m is the number of mappings... One way to improve the performance is to sort the mappings by their source start values. This way, when mapping a value, you can use binary search to quickly find the mapping that applies to the value, instead of having to check each mapping in turn. This can reduce the time complexity of the mapping operation from O(m) to O(log m)..."_
 
 The whole conversation is in the file [day5.md](prompts/day5.md).
+
+## Day 6
+
+First part, AI has serious problems with parsing the input. I let it try several times until I helped it with a comment about repetead whitespace is a single separator. Then it solved it. It was obvious that it was taking chances, focusing on the algorithm and not the input.
