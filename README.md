@@ -53,3 +53,7 @@ The whole conversation is in the file [day5.md](prompts/day5.md).
 ## Day 6
 
 First part, AI has serious problems with parsing the input. I let it try several times until I helped it with a comment about repetead whitespace is a single separator. Then it solved it. It was obvious that it was taking chances, focusing on the algorithm and not the input.
+
+At the second part, it presented only pseudocode. I expressed a concern that it was not efficient enough. So it was tricked into doing a premature optimization. 
+
+That went down a rabbit hole where it could not find the correct solution. I suggested it to try a non-optimized approach and it worked on the second try. The optimization was not needed.
