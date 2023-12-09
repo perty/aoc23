@@ -65,3 +65,7 @@ I decided to take a more active part and sort of read my mind, or by chance, it 
 In the second part, Copilot was not able to solve it at all. Despite that I tried to help it with observations. I decided that we should write tests to see where we failed. Copilot wrote a few tests and I added some more. Copilot failed to come up with an implementation that passed the tests. I took over the keyboard and broke down the logic into small methods. It was then easy to pinpoint each case.
 
 The conversation for part 1 is in the file [day7.md](prompts/day7.md).
+
+## Day 8
+
+Part 1 was quite easy. I just had to help it with the parsing of the input. It seems that empty lines often trips it up.
