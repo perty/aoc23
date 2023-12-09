@@ -62,3 +62,6 @@ That went down a rabbit hole where it could not find the correct solution. I sug
 
 I decided to take a more active part and sort of read my mind, or by chance, it didn't give me all the code at once. We developed the solution in steps. I suggested some simplifications and pointed out a few mistakes. On first run, it worked.
 
+In the second part, Copilot was not able to solve it at all. Despite that I tried to help it with observations. I decided that we should write tests to see where we failed. Copilot wrote a few tests and I added some more. Copilot failed to come up with an implementation that passed the tests. I took over the keyboard and broke down the logic into small methods. It was then easy to pinpoint each case.
+
+The conversation for part 1 is in the file [day7.md](prompts/day7.md).
