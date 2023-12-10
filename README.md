@@ -75,3 +75,8 @@ Part 2 was a bit tricky, unnecessary so because we didn't read the specification
 The confidence of Copilot is sometimes a bit in the way. I get the feeling that it has read the specification correctly and already have a solution. I have had confident coworkers, so the feeling is not novel. 
 
 I have not saved the conversion this time, not sure that it is important.
+
+## Day 9
+
+Part 1. It started with giving me some pseudocode. Instead of asking it to implement all of it, I asked for a piece at the time, starting with parsing the input. That gave me better understanding of the solution. The first try was wrong, but it was easy to fix.
+
