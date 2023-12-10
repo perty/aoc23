@@ -69,3 +69,9 @@ The conversation for part 1 is in the file [day7.md](prompts/day7.md).
 ## Day 8
 
 Part 1 was quite easy. I just had to help it with the parsing of the input. It seems that empty lines often trips it up.
+
+Part 2 was a bit tricky, unnecessary so because we didn't read the specification in enough detail. While trying to find out was wrong, I peeked at Reddit and found a mentioning of LCM. Copilot understood the concept and added some code. We were still traversing the graph in a wrong way. Rereading the specification revealed a silly mistake. 
+
+The confidence of Copilot is sometimes a bit in the way. I get the feeling that it has read the specification correctly and already have a solution. I have had confident coworkers, so the feeling is not novel. 
+
+I have not saved the conversion this time, not sure that it is important.
