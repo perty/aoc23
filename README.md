@@ -80,3 +80,5 @@ I have not saved the conversion this time, not sure that it is important.
 
 Part 1. It started with giving me some pseudocode. Instead of asking it to implement all of it, I asked for a piece at the time, starting with parsing the input. That gave me better understanding of the solution. The first try was wrong, but it was easy to fix.
 
+Part 2 posed no problems other than a detail in the understanding of the specification, again.
+
