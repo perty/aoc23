@@ -82,3 +82,10 @@ Part 1. It started with giving me some pseudocode. Instead of asking it to imple
 
 Part 2 posed no problems other than a detail in the understanding of the specification, again.
 
+## Day 10
+
+Part 1 was a complete failure, almost.It did understand the meaning of the letters when I asked for an enum to represent them. For example, '-' was called HORIZONTAL. However, when traversing the maze, it didn't care about the letters. It started discussing depth-first and breadth-first search. Since the start point's connections were not known, it had to be deduced, something it didn't manage to solve.
+
+The problem didn't fit its way of guessing. 
+
+So I had to do much of the work myself. Some help it still gave, but it definitely didn't solve it.
